@@ -10,8 +10,12 @@
 % It is otherwise a very minimal preamble (you should probably at least
 % add cleveref and tikz-cd).
 
-\documentclass[a4paper]{report}
+\documentclass[xelatex,a4paper,ja=standard]{bxjsreport}
+\usepackage{amsmath}%数式を書くためのパッケージ
 
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
 \usepackage{geometry}
 
 \usepackage{expl3}
@@ -20,6 +24,7 @@
 \usepackage[unicode,colorlinks=true,linkcolor=blue,urlcolor=magenta, citecolor=blue]{hyperref}
 
 \usepackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
+
 
 \input{macros/common}
 \input{macros/print}
