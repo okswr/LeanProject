@@ -10,20 +10,327 @@
 
 
 %
+\if0
+\begin{definition}
+    universeが存在する．
+\end{definition}
 
-\begin{theorem}[Fundamental theorem on homomorphisms]
+\begin{definition}
+    \textbf{項(Expressions)}
+\end{definition}
+
+\begin{definition}
+    \textbf{型(Type)}であるとは，
+\end{definition}
+
+\begin{definition}
+    $a$ : $\alpha$と書いたとき，$a$を\textbf{$\alpha$の項(Expressions)}，$\alpha$を\textbf{$a$の型(Type)}と呼ぶ．
+\end{definition}
+
+\begin{theorem}[関数型言語より]
+    すべての項(Expressions)は関連した型(Type)を持つ．
+\end{theorem}
+
+\begin{definition}
+    が\textbf{命題(Prop)}であるとは，
+\end{definition}
+
+\begin{definition}
+    $\mathbb{N}$が自然数型であるとは，以下の性質を満たすことである．
+    \begin{align}
+        0 \in \mathbb{N}\\
+        n\in\mathbb{N},succ(n)\in \mathbb{N}
+    \end{align}
+    ただし$\in$は集合論としての記号ではなく，$x\in X$で"$x$は$X$型である"の略記とする．
+    また，自然数はType 0である．
+\end{definition}
+
+\begin{definition}
+    自然数$u$が\textbf{宇宙(universe)}であるとは，
+\end{definition}
+
+\begin{definition}
+    $\alpha$が\textbf{基本型(basic types)}であるとは，
+\end{definition}
+
+\begin{definition}
+    $\alpha$が\textbf{型(Type)}であるとは，
+\end{definition}
+\fi
+
+\begin{definition}
+    $\alpha$が\textbf{level uの型である(Type u)}であるとは，$\alpha$が宇宙$u$に属することである．
+
+    すべての項あるいは式(Expressions)は型(Type)を持つ．
+
+\end{definition}
+
+
+\begin{definition}
+    Type uである$\alpha$が\textbf{単位元を持つ(One)}であるとは，以下の性質を満たすことである．
+    \begin{align}
+%        \exists 1 \in \alpha
+        \exists\text{one} : \alpha
+    \end{align}
+    この$\alpha$型のoneを$1$と書き，これを単位元と呼ぶ．
+
+    以降，$\alpha$と$1$の関係を明記したい場合，これを$\alpha$と$1$の組$(\alpha,1)$を用いて$\alpha = (\alpha,1)$と記述する．
+
+    また，$1$が単位元を持つ$\alpha$の単位元であることを明記したい場合，これを$1_\alpha$と記述する．
+
+    (注意)上記における$1$とは単位元という名前を持つ元があるということだけを保証しているに過ぎない.つまり$\alpha$がOne型であるとは$1$という$\alpha$型の値を持つだけで，その性質は定義していない．
+\end{definition}
+
+\begin{definition}
+    Type uである$\alpha$が\textbf{逆元を持つ(Inv)}であるとは，関数Invについて以下の性質を満たすことである．
+    \begin{align}
+        \exists\text{inv} : \alpha \rightarrow \alpha
+    \end{align}
+    この$\alpha \rightarrow \alpha$型の関数invについて，inv $\alpha$を$\alpha^{-1}$と書き，これを逆元と呼ぶ．
+
+    （注意）上記におけるinvは$\alpha$に対して$\alpha^{-1}$を対応させているだけに過ぎない．つまり$\alpha$がInv型であるとは$\alpha^{-1}$という$\alpha\rightarrow\alpha$型の値を持つだけで，その性質は定義していない．
+\end{definition}
+
+\begin{definition}
+    Type uである$\alpha$が\textbf{乗法$\cdot$で閉じている(Mul)}であるとは，二項関数$\cdot$について以下の性質を満たすことである．
+    \begin{align}
+        \exists \cdot : \alpha \times \alpha \rightarrow \alpha
+    \end{align}
+    この$\cdot$を乗法演算子と呼ぶ．
+
+    以降，$\alpha$と$\cdot$の関係を明記したい場合，これを$\alpha$と$\cdot$の組$(\alpha,\cdot)$を用いて$\alpha = (\alpha,\cdot)$と記述する．
+
+    また，$\cdot$が乗法で閉じている$\alpha$の乗法演算子であることを明記したい場合，これを$\cdot_\alpha$と記述する．
+\end{definition}
+
+\begin{definition}
+    Type uである$G$が\textbf{半群(Semigroup)}であるとは，$G=(G,\cdot)$が乗法で閉じていて，かつ以下の性質を満たすことである．
+    \begin{align}
+        \forall a,b,c \in G,(a\cdot b)\cdot c = a\cdot(b\cdot c)
+    \end{align}
+    また，半群$(G,\cdot_G),(G',\cdot_{G'})$が等しいとは，型$G,G'$が等しく，また乗法演算子$\cdot_G,\cdot_{G'}$が等しいということである．\\
+    つまり，以下を満たすことである（外延性）．
+    \begin{align}
+        G = G' \\
+        \forall a,b \in G;a \cdot_G b = a \cdot_{G'}b
+    \end{align}
+\end{definition}
+
+
+\begin{definition}
+    Type uである$G$が\textbf{乗法単位元を持つ(MulOneClass)}であるとは，$(M,\cdot,1)$が単位元を持ち，$(M,\cdot,1)$が乗法で閉じていて，かつ以下の性質を満たすことである．
+    \begin{align}
+        \forall a \in M,1\cdot a = a\cdot 1 = a
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    Type uであるMが\textbf{モノイド(Monoid)}であるとは，$(M,\cdot_M,1_M)$が半群で，$(M,\cdot_M,1_M)$が乗法単位元を持ち，かつ以下の性質を満たすことである．
+    \begin{align}
+        \text{npow} : \mathbb{N} \times M \rightarrow M\\
+        \forall x \in M ; \text{npow} (0,x) = 1_M\\
+        \forall n \in \mathbb{N},\forall x \in M ; \text{npow} (n+1,x)=\text{npow} (n,x)\cdot_M x
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    $A$が，単位元を持つ$(M,1_M),(N,1_N)$の組$(M,N)$の\textbf{OneHom}であるとは，$A$が以下の性質を満たすことである．
+    \begin{align}
+        \text{toFun} : M \rightarrow N\\
+        \text{toFun}(1_M) = 1_N
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    $A$が，乗法で閉じている$(M,\cdot_M),(N,\cdot_N)$の組$(M,N)$の\textbf{MulHom}であるとは，$A$が以下の性質を満たすことである．
+    \begin{align}
+        \text{toFun} : M \rightarrow N\\
+        \forall x,y \in M,\text{toFun}(x\cdot_M y)=\text{toFun}(x)\cdot_N \text{toFun}(y)
+    \end{align}
+    MulHomである$(M,N)$を$M →^{*}_{n} N$と略記する．
+\end{definition}
+
+%@[to_additive]
+%structure MonoidHom (M : Type*) (N : Type*) [MulOneClass M] [MulOneClass N] extends
+%  OneHom M N, M →ₙ* N
+
+\begin{definition}
+    $A$が，乗法単位元を持つ$(M,\cdot_M,1_M),(N,\cdot_N,1_N)$の組$(M,N)$の\textbf{MonoidHom}型であるとは，$A$が組$(M,N)$のOneHomで，$A$が組$(M,N)$のMulHomであることである．
+
+    $(M,N)$のMonoidHomを$M →* N$と略記する．また，$M →* N$型の値をモノイド準同型と呼ぶことにする．
+\end{definition}
+
+
+\begin{definition}
+    $A$が，Type uである$\alpha$のSet型であるとは，$A$が$\alpha\rightarrow$Prop型の関数であることである．
+
+    数学的に$a \in M$であることと，Lean4において$\alpha : $Set $M = M\rightarrow$Prop型から$\alpha a = $Trueであることは同値である．
+\end{definition}
+
+
+%/-- A subsemigroup of a magma `M` is a subset closed under multiplication. -/
+%structure Subsemigroup (M : Type*) [Mul M] where
+%  /-- The carrier of a subsemigroup. -/
+%  carrier : Set M
+%  /-- The product of two elements of a subsemigroup belongs to the subsemigroup. -/
+%  mul_mem' {a b} : a ∈ carrier → b ∈ carrier → a * b ∈ carrier
+\begin{definition}
+    $A$が，Type*であり乗法で閉じている$M=(M,\cdot)$の\textbf{部分半群(Subsemigroup)}型であるとは，$A$が以下の性質を満たすことである．
+    \begin{align}
+        \exists\text{carrier} : \text{Set} M\\
+        a,b \in carrier \Rightarrow a * b \in carrier
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    $A$が，Type*であり乗法単位元を持つ$M=(M,\cdot_M,1_M)$の\textbf{部分モノイド(Submonoid)}型であるとは，$A$が$M$の部分半群であり，かつ以下の性質を満たすことである．
+    \begin{align}
+        1_M \in \text{carrier}
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    $A$が，Type*であり群である$G$の\textbf{部分群(Subgroup)}型であるとは，$A$が$G$の部分モノイドであり，かつ以下の性質を満たすことである．
+    \begin{align}
+        x \in carrier \Rightarrow x^{-1} \in carrier
+    \end{align}
+\end{definition}
+
+%class Name(M : Type u)extends ClassName2 M where P(x)
+%Type u であるMがNameであるとは，MがClassNameであり,かつ以下の性質を満たすことである．P(x)
+
+%structure Name(M : Type*)[ClassName M]extends ClassName2 M where P(x)
+%AがTypeでありClassnameであるMのNameであるとは，AがMのClassName2であり，かつ以下の性質を満たすことである．P(x)
+
+\begin{definition}
+%lean4
+    モノイド$M,N$，モノイド準同型$f : M \rightarrow N$に対して，$N'$を$N$の最小の部分モノイドとしたとき，$f$の核$\ker f$は以下のように定義される．
+    \begin{align}
+        \ker f := f^{-1}(N')
+    \end{align}
+\end{definition}
+
+%class HasQuotient (A : outParam <| Type u) (B : Type v) where
+%  /-- auxiliary quotient function, the one used will have `A` explicit -/
+%  quotient' : B → Type max u v
+%
+%-- Will be provided by e.g. `Ideal.Quotient.inhabited`
+%/-- `HasQuotient.Quotient A b` (denoted as `A ⧸ b`) is the quotient
+% of the type `A` by `b`.
+%
+%This differs from `HasQuotient.quotient'` in that the `A` argument is
+% explicit, which is necessary to make Lean show the notation in the
+% goal state.
+%-/
+%abbrev HasQuotient.Quotient (A : outParam <| Type u) {B : Type v}
+%    [HasQuotient A B] (b : B) : Type max u v :=
+%  HasQuotient.quotient' b
+\begin{definition}
+    Type uである$A$，Type vである$B$の組$(A,B)$がHasQuotient型であるとは，以下の性質を満たすことである．
+
+\end{definition}
+
+\begin{definition}
+    $A / B$
+\end{definition}
+
+\begin{definition}\label{range}
+    Sort*である$\iota$，Type*である$\alpha$に対し，$f : \iota \rightarrow \alpha$のrangeとは，Set $\alpha$型であり，$y\in \iota,x\in \alpha$に対してProp型$\{x | ∃ y, f y = x\}$を返す関数である．
+\end{definition}
+
+
+%(つまりfがGとNのMonoidHom型)
+%⊤は最大を意味しているらしい
+%p = ⊤ ↔ ∀ (x : M), x ∈ pより
+\begin{definition}
+    $f : G →* N$のrangeとは，$N$の部分群型であり，Deffinition\ref{range}の意味で「$G$の部分群の中で最大のものを集合と見做したもの」の$f$のrangeに$N$の部分群型の性質を与えたものである．
+
+    これをrange$(f)$と書くことにする．
+\end{definition}
+
+
+%structure Equiv (α : Sort*) (β : Sort _) where
+%  protected toFun : α → β
+%  protected invFun : β → α
+%  protected left_inv : LeftInverse invFun toFun
+%  protected right_inv : RightInverse invFun toFun
+
+\begin{definition}
+    $A$が，Sort*である$\alpha$とSort*である$\beta$の組$(\alpha,\beta)$のEquiv型であるとは，$A$が以下の性質を満たすことである．
+    \begin{align}
+        \text{toFun} : \alpha \rightarrow \beta\\
+        \text{invFun} : \beta \rightarrow \alpha \\
+        \forall x , \text{invFun}( \text{toFun}(x) )= x\\
+        \forall y , \text{toFun}(\text{invFun}(y))= y
+    \end{align}
+    $(\alpha,\beta)$のEquivを$\alpha \simeq \beta$と略記する．
+\end{definition}
+
+%structure MulEquiv (M N : Type*) [Mul M] [Mul N] extends M ≃ N, M →ₙ* N
+\begin{definition}
+    $A$が，乗法で閉じている$M=(M,\cdot),N=(N,\cdot)$の組$(M,N)$の同型(MulEquiv)型であるとは，$A$が(M,N)のEquip($M \simeq N$)型であり，$A$が(M,N)のMonoidHom($M →^{*}_{n} N$)型であることである．
+
+    $(M,N)$のMulEquivを$M \simeq* N$と略記する．
+\end{definition}
+
+\begin{theorem}
+    $G,G'$を群とし，$\phi:G\to G'$を群準同型とする．この時，
+    \begin{align}
+        G/\ker\phi &\cong \phi(G)
+    \end{align}
+    が成り立つ．
+\end{theorem}
+%rangeKerLift : G ⧸ ker φ →* φ.range
+%  lift _ φ.rangeRestrict fun g hg => mem_ker.mp <| by rwa [ker_rangeRestrict]
+
+%noncomputable def quotientKerEquivRange : G ⧸ ker φ ≃* range φ :=
+%MulEquiv.ofBijective (rangeKerLift φ) ⟨rangeKerLift_injective φ, rangeKerLift_surjective φ⟩
+\begin{proof}
+     $G$ / $\ker \phi \simeq *$ range $(\phi)$ 型の$A$を定義する．
+
+     このとき$A$は定義より以下の条件
+     \begin{align}
+        G / \ker \phi\text{が乗法で閉じている}\\
+        \text{range} (\phi)\text{が乗法で閉じている}
+     \end{align}
+     を満たすとき，以下の性質を持つ．
+
+     [Equiv]
+
+     \begin{align}
+        \text{toFun} : M \rightarrow N \\
+        \text{invFun} : N \rightarrow M \\
+        \forall x , \text{invFun}(\text{toFun}(x))=x\\
+        \forall y , \text{toFun}(\text{invFun}(y))=y
+     \end{align}
+
+     [MonoidHom]
+
+     \begin{align}
+        \text{toFun} : M \rightarrow N\\
+        \text{toFun}(1_M)=1_N\\
+        \forall x,y \in M,\text{toFun}(x\cdot_M y)=\text{toFun}(x)\cdot_N \text{toFun}(y)
+     \end{align}
+     ($G / \ker \phi →* \text{range} (\phi)$)型の関数（すなわちモノイド準同型な$f : G / \ker \phi → \phi(G)$）をMulEquivのtoFun関数とする．
+
+     この$f$は(rangeKerLiftInjective $\phi$とrangeKerLiftSurjective $\phi$より)全単射であるため[Equiv]を満たし，モノイド準同型[MonoidHom]を満たす．
+
+     以上より全単射かつモノイド準同型な関数$f$によって$G$ / $\ker \phi \simeq *$ range $(\phi)$ 型の$A$を定義できたため，全単射かつモノイド準同型な関数$f$について準同型定理が成り立つ．
+\end{proof}
+
+\begin{theorem}[Fundamental theorem on homomorphisms]\label{Fundamental theorem on homomorphisms}
 \lean{quotientKerEquivRange}
 
 $G,G'$を群とし，$\phi:G\to G'$を群準同型とする．この時，
 \begin{align}
-    G/\ker\phi &\cong \phi(G) 
+    G/\ker\phi &\cong \phi(G)
 \end{align}
 が成り立つ．
 \end{theorem}
 \begin{proof}
     $\phi$から誘導される写像$\tilde{\phi} : G/\ker\phi\to \phi(G)$を
     \begin{align}
-        \tilde{\phi}(g\ker\phi) &= \phi(g) 
+        \tilde{\phi}(g\ker\phi) &= \phi(g)
     \end{align}
     と定めたとき，これがwell-definedであり，かつ同型写像であることを示す．
 
@@ -44,8 +351,8 @@ $G,G'$を群とし，$\phi:G\to G'$を群準同型とする．この時，
     任意の$g'\in \phi(G)$に対して，$\phi(g)=g'$となる$g\in G$が存在する．
     よって，$\tilde{\phi}(g\ker\phi)=g'$が成り立つ．
     よって，$\tilde{\phi}$は全射である．
-    
-    
+
+
     $\tilde{\phi}$が単射であることを示す．
 
     $\tilde{\phi}(g_1\ker\phi)=\tilde{\phi}(g_2\ker\phi)$とすると，
@@ -87,7 +394,7 @@ $G$を群，$H \leq   G$を部分群，$N\lhd G$を正規部分群とする．�
     \begin{align}
         \phi(h) &= he_N N
     \end{align}
-    と定める．この時，$\phi$は群準同型である．  
+    と定める．この時，$\phi$は群準同型である．
 
     $\ker\phi=H\cap N$が成り立つことを示す．
 
@@ -101,10 +408,10 @@ $G$を群，$H \leq   G$を部分群，$N\lhd G$を正規部分群とする．�
     よって，$\ker\phi=H\cap N$が成り立つ．
 
     $\phi$が全射であることを示す．
-    
+
     任意の$hnN\in HN/N$に対して，$h\in H,\phi(h)=hN=hnN$が存在するので，$\phi$は全射である．
 
-    $\ker\phi=H\cap N$,$\phi(H)=HN/N$が成り立つので，Theorem1より
+    $\ker\phi=H\cap N$,$\phi(H)=HN/N$が成り立つので，Theorem\ref{Fundamental theorem on homomorphisms}より
     \begin{align}
         H/(H\cap N) &\cong HN/N
     \end{align}
@@ -135,7 +442,7 @@ $G$を群，$N\lhd G$，$M\lhd G$を正規部分群とする．$N\subseteq M$の
 
     任意の$gM\in G/M$に対して，$N \subseteq M$より$gN\in G/N,\phi(gN)=gM$が存在するので，$\phi$は全射である．
 
-    $\ker\phi=M/N$, $\phi(G/N)=G/M$が成り立つので，Theorem1より
+    $\ker\phi=M/N$, $\phi(G/N)=G/M$が成り立つので，Theorem \ref{Fundamental theorem on homomorphisms}より
     \begin{align}
         (G/N)/(M/N) &\cong G/M
     \end{align}
@@ -153,14 +460,13 @@ $G$を群，$N\lhd G$を正規部分群とする．この時，$\cong $を順序
 %    \begin{align}
 %        A \leq B &\Leftrightarrow  A/N \leq B/N \\
 %        A \leq B &\Rightarrow \left\lvert B : A\right\rvert = \left\lvert B/N : A/N\right\rvert \\
-%        \left\langle A,B\right\rangle / N &= \left\langle A/N,B/N\right\rangle \\ 
+%        \left\langle A,B\right\rangle / N &= \left\langle A/N,B/N\right\rangle \\
 %        \left(A\cap B\right) / N &= \left(A/N\cap B/N\right) \\
 %        A \lhd G &\Leftrightarrow  A/N \lhd G/N
 %    \end{align}
 \end{theorem}
 \begin{proof}
 
-%    $f(K) := \left\{g\in G | gN\in K\right\} $と定義すると，
     \begin{align}
         X&:=\left\{ K | K \leq  G/N\right\} \\
         Y&:=\left\{ H | H\leq  G , N \leq   H \right\}
@@ -196,7 +502,7 @@ $G$を群，$N\lhd G$を正規部分群とする．この時，$\cong $を順序
     $\psi\circ\phi$が恒等写像であることを示す．
     任意の$H\in Y$に対して，
     \begin{align}
-        \psi(\phi(H)) &= \psi\left(\left\{hN \in G/N | h \in H\right\}\right) \notag\\   
+        \psi(\phi(H)) &= \psi\left(\left\{hN \in G/N | h \in H\right\}\right) \notag\\
         &= \left\{g\in G | gN \in \left\{hN \in G/N | h \in H\right\}\right\} \notag\\
         &= \left\{h \in G | h \in H\right\} \notag\\
         &= H \notag
@@ -224,5 +530,5 @@ $G$を群，$N\lhd G$を正規部分群とする．この時，$\cong $を順序
 
     $\phi : Y \to X$は全単射かつ順序を保つので，$X$と$Y$は順序同型である．
 
- 
+
 \end{proof}
