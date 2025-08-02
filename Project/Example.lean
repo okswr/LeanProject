@@ -5,12 +5,7 @@ Authors: Kevin Buzzard, Patrick Massot
 -/
 -- This file is to a certain extent based on `quotient_module.lean` by Johannes Hölzl.
 
-
-import Mathlib.Algebra.BigOperators.Group.Finset.Defs
-import Mathlib.Algebra.Group.Subgroup.MulOppositeLemmas
-import Mathlib.GroupTheory.Coset.Basic
 import Mathlib.GroupTheory.QuotientGroup.Defs
-
 
 /-!
 # Quotients of groups by normal subgroups
@@ -22,14 +17,7 @@ proves Noether's first and second isomorphism theorems.
 
 * `QuotientGroup.quotientKerEquivRange`: Noether's first isomorphism theorem, an explicit
   isomorphism `G/ker φ → range φ` for every group homomorphism `φ : G →* H`.
-* `QuotientGroup.quotientInfEquivProdNormalizerQuotient`: Noether's second isomorphism
-  theorem, an explicit isomorphism between `H/(H ∩ N)` and `(HN)/N` given a subgroup `H`
-  that lies in the normalizer `N_G(N)` of a subgroup `N` of a group `G`.
-* `QuotientGroup.quotientQuotientEquivQuotient`: Noether's third isomorphism theorem,
-  the canonical isomorphism between `(G / N) / (M / N)` and `G / M`, where `N ≤ M`.
-* `QuotientGroup.comapMk'OrderIso`: The correspondence theorem, a lattice
-  isomorphism between the lattice of subgroups of `G ⧸ N` and the sublattice
-  of subgroups of `G` containing `N`.
+
 
 ## Tags
 
@@ -58,6 +46,7 @@ def rangeKerLift : G ⧸ ker φ →* φ.range :=
 
 
 -- 説明のために，上記をタクティクスモードで証明
+-- def : G ⧸ ker φ →* φ.range
 
 example : G ⧸ ker φ →* φ.range := by
 -- G ⧸ kerφ →* Imφ (G ⧸ kerφ) と Imφ が準同型であることを示す．
@@ -70,7 +59,7 @@ example : G ⧸ ker φ →* φ.range := by
     --  つまり g ∈ kerφ → g ∈ kerφ.rangeRestrict を示すために
     --  ∀ g ∈ kerφ, φ.rangeRestrict g = 1 を示す．
     --  これらは商写像として定義できることを示している．
-    toFun := lift (ker φ) φ.rangeRestrict fun g hg => mem_ker.mp <| by rwa [ker_rangeRestrict]
+    toFun := QuotientGroup.lift (ker φ) φ.rangeRestrict fun g hg => mem_ker.mp <| by rwa [ker_rangeRestrict]
     -- この写像が準同型写像であることを示す．
     -- この写像が1を1に移すことを示す．
     map_one' := by
@@ -81,7 +70,7 @@ example : G ⧸ ker φ →* φ.range := by
       dsimp
     -- モノイド準同型は演算について準同型である(マグマ準同型?)．
     -- 演算について準同型の写像は演算を保つ
-      simp only [map_mul]
+      simp only [@MonoidHom.map_mul]
       simp only [implies_true]
   }
 
@@ -110,7 +99,7 @@ example : Injective (rangeKerLift φ) := by
   obtain ⟨g',eqg'⟩ := QuotientGroup.mk_surjective q'
   -- q = q' にq = g kerφ , q' = g' kerφを代入する．
   rw [← eqg,← eqg']
-  -- g kerφ = g' kerφ から商群G/kerφの等号の定義より g⁻¹ g ∈ kerφ
+  -- g kerφ = g' kerφ から商群G/kerφの等号の定義より g⁻¹ g' ∈ kerφ
   rw [@QuotientGroup.eq]
   simp only [mem_ker, map_mul, map_inv]
   -- simpを用いて(φ g)⁻¹を右へ移項した．
@@ -122,7 +111,7 @@ example : Injective (rangeKerLift φ) := by
       _= rangeKerLift φ q := by rw [eqg.symm] -- g kerφ = q
       _= rangeKerLift φ q' := by rw [eqf]     -- (rangeKerLift)q = (rangeKerLift)q'
       _= rangeKerLift φ (↑g') := by rw [eqg'] -- q' = g' kerφ
-      _= φ g' := by exact rfl                 --(rangeKerLift φ)g kerφ - φ g'
+      _= φ g' := by exact rfl                 -- (rangeKerLift φ)g kerφ = φ g'
 
 
 @[to_additive]
@@ -153,7 +142,9 @@ example : Surjective (rangeKerLift φ) := by
 
 
 
-
+-- 群の準同型定理について示す．
+-- def : G ⧸ ker φ ≃* range φ
+-- G ⧸ ker φ →* range φ ,
 
 /-- **Noether's first isomorphism theorem** (a definition): the canonical isomorphism between
 `G/(ker φ)` to `range φ`. -/
@@ -185,9 +176,10 @@ noncomputable example : G ⧸ ker φ ≃* range φ := by
   -- bj : rangekerLift φは全単射
   use MulEquiv.ofBijective (rangeKerLift φ) bj
   dsimp
-  --演算を保つことはrangeKerLift φがモノイド準同型であることから成り立つ
-  --以下はexactの具体的な構成（モノイド準同型写像は演算を保つ）
-  exact fun x y => MonoidHom.map_mul (rangeKerLift φ) x y
+  -- 演算を保つことはrangeKerLift φがモノイド準同型であることから成り立つ
+  simp only [@MonoidHom.map_mul]
+  simp only [implies_true]
+
 
 
 
