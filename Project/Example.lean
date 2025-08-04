@@ -59,7 +59,9 @@ example : G ⧸ ker φ →* φ.range := by
     --  つまり g ∈ kerφ → g ∈ kerφ.rangeRestrict を示すために
     --  ∀ g ∈ kerφ, φ.rangeRestrict g = 1 を示す．
     --  これらは商写像として定義できることを示している．
-    toFun := QuotientGroup.lift (ker φ) φ.rangeRestrict fun g hg => mem_ker.mp <| by rwa [ker_rangeRestrict]
+    toFun := QuotientGroup.lift (ker φ) φ.rangeRestrict fun g hg => mem_ker.mp <| by
+        rw [ker_rangeRestrict]
+        exact hg
     -- この写像が準同型写像であることを示す．
     -- この写像が1を1に移すことを示す．
     map_one' := by
