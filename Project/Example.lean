@@ -186,4 +186,4 @@ noncomputable example : G ⧸ ker φ ≃* range φ := by
 
 
 
-#min_imports
+--#min_imports
