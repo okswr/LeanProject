@@ -69,12 +69,12 @@ example : G ⧸ ker φ →* φ.range := by
       rw [@MonoidHom.map_one]
     -- この写像が演算を保つことを示す．
     map_mul' := by
-
-      simp only [id_eq, eq_mpr_eq_cast, OneHom.toFun_eq_coe, OneHom.coe_mk]
+      apply map_mul
+      --simp only [id_eq, eq_mpr_eq_cast, OneHom.toFun_eq_coe, OneHom.coe_mk]
     -- モノイド準同型は演算について準同型である(マグマ準同型?)．
     -- 演算について準同型の写像は演算を保つ
-      simp only [@MonoidHom.map_mul]
-      simp only [implies_true]
+      --simp only [@MonoidHom.map_mul]
+      --simp only [implies_true]
   }
 
 
