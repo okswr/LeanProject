@@ -30,6 +30,8 @@ open MonoidHom
 
 namespace QuotientGroup
 
+universe u v
+
 variable {G : Type u} [Group G] {H : Type v} [Group H]
 
 variable (φ : G →* H)
@@ -83,8 +85,9 @@ example : G ⧸ ker φ →* φ.range := by
 @[to_additive]
 theorem rangeKerLift_injective : Injective (rangeKerLift φ) := fun a b =>
   Quotient.inductionOn₂' a b fun a b (h : φ.rangeRestrict a = φ.rangeRestrict b) =>
-    Quotient.sound' <| by rw [leftRel_apply, ← ker_rangeRestrict, mem_ker, φ.rangeRestrict.map_mul, ← h,
-      φ.rangeRestrict.map_inv, inv_mul_cancel]
+    Quotient.sound' <| by
+      rw [leftRel_apply, ← ker_rangeRestrict, mem_ker, φ.rangeRestrict.map_mul, ← h,
+        φ.rangeRestrict.map_inv, inv_mul_cancel]
 
 
 -- 説明のために，上記をタクティクスモードで証明
