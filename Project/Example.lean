@@ -1,9 +1,4 @@
-/-
-Copyright (c) 2018 Kevin Buzzard, Patrick Massot. All rights reserved.
-Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Kevin Buzzard, Patrick Massot
--/
--- This file is to a certain extent based on `quotient_module.lean` by Johannes Hölzl.
+
 
 import Mathlib.GroupTheory.QuotientGroup.Defs
 
@@ -38,7 +33,12 @@ variable (φ : G →* H)
 
 
 
-
+/-
+Copyright (c) 2018 Kevin Buzzard, Patrick Massot. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Kevin Buzzard, Patrick Massot
+-/
+-- This file is to a certain extent based on `quotient_module.lean` by Johannes Hölzl.
 -- Note that `ker φ` isn't definitionally `ker (φ.rangeRestrict)`
 -- so there is a bit of annoying code duplication here
 /-- The induced map from the quotient by the kernel to the range. -/
@@ -49,6 +49,15 @@ def rangeKerLift : G ⧸ ker φ →* φ.range :=
 
 -- 説明のために，上記をタクティクスモードで証明
 -- def : G ⧸ ker φ →* φ.range
+
+-- G ⧸ ker φ →* φ.range型は
+
+-- toFun : G ⧸ ker φ → φ.range
+-- map_one' : toFun 1 = 1
+-- map_mul' : toFun (x*y) = toFun x * toFun y
+
+-- 上記の性質を持つ
+
 
 example : G ⧸ ker φ →* φ.range := by
 -- G ⧸ kerφ →* Imφ (G ⧸ kerφ) と Imφ が準同型であることを示す．
@@ -81,7 +90,12 @@ example : G ⧸ ker φ →* φ.range := by
 
 
 
-
+/-
+Copyright (c) 2018 Kevin Buzzard, Patrick Massot. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Kevin Buzzard, Patrick Massot
+-/
+-- This file is to a certain extent based on `quotient_module.lean` by Johannes Hölzl.
 @[to_additive]
 theorem rangeKerLift_injective : Injective (rangeKerLift φ) := fun a b =>
   Quotient.inductionOn₂' a b fun a b (h : φ.rangeRestrict a = φ.rangeRestrict b) =>
@@ -119,6 +133,13 @@ example : Injective (rangeKerLift φ) := by
       _= φ g' := by exact rfl                 -- (rangeKerLift φ)g kerφ = φ g'
 
 
+
+/-
+Copyright (c) 2018 Kevin Buzzard, Patrick Massot. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Kevin Buzzard, Patrick Massot
+-/
+-- This file is to a certain extent based on `quotient_module.lean` by Johannes Hölzl.
 @[to_additive]
 theorem rangeKerLift_surjective : Surjective (rangeKerLift φ) := by
   rintro ⟨_, g, rfl⟩
@@ -147,16 +168,26 @@ example : Surjective (rangeKerLift φ) := by
 
 
 
--- 群の準同型定理について示す．
--- def : G ⧸ ker φ ≃* range φ
--- G ⧸ ker φ →* range φ ,
 
+
+/-
+Copyright (c) 2018 Kevin Buzzard, Patrick Massot. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Kevin Buzzard, Patrick Massot
+-/
+-- This file is to a certain extent based on `quotient_module.lean` by Johannes Hölzl.
 /-- **Noether's first isomorphism theorem** (a definition): the canonical isomorphism between
 `G/(ker φ)` to `range φ`. -/
 @[to_additive "The first isomorphism theorem (a definition): the canonical isomorphism between
 `G/(ker φ)` to `range φ`."]
 noncomputable def quotientKerEquivRange : G ⧸ ker φ ≃* range φ :=
   MulEquiv.ofBijective (rangeKerLift φ) ⟨rangeKerLift_injective φ, rangeKerLift_surjective φ⟩
+
+
+-- 群の準同型定理について示す．
+-- def : G ⧸ ker φ ≃* range φ
+-- G ⧸ ker φ ≃ range φ, G ⧸ ker φ →ₙ* range φ
+-- 数学的には
 
 
 -- 説明のために，上記をタクティクスモードで証明
